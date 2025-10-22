@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 import java.net.URL;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.awt.Desktop;
 import java.util.Scanner;
 
@@ -96,7 +97,13 @@ public class WikiSearch {
 
                         System.out.println("Открываю статью: " + articleUrl);
                         if (Desktop.isDesktopSupported()) {
-                            Desktop.getDesktop().browse(new URI(articleUrl));
+                            try {
+                                Desktop.getDesktop().browse(new URI(articleUrl));
+                            } catch (URISyntaxException e) {
+                                System.out.println("Некорректный URL: " + e.getMessage());
+                            } catch (IOException e) {
+                                System.out.println("Ошибка при открытии браузера: " + e.getMessage());
+                            }
                         } else {
                             System.out.println("Открытие браузера не поддерживается.");
                         }
@@ -128,8 +135,6 @@ public class WikiSearch {
             System.out.println("Ошибка кодировки: " + e.getMessage());
         } catch (IOException e) {
             System.out.println("Ошибка сети: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Неожиданная ошибка: " + e.getMessage());
         } finally {
             scanner.close();
         }
