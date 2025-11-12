@@ -53,7 +53,7 @@ public class WikiSearch {
                 continue;
             }
 
-            String[] titles = Titles(searchResults);
+            String[] titles = titles(searchResults);
             handleResults(scanner, titles);
         }
     }
@@ -112,7 +112,7 @@ public class WikiSearch {
         return wikiResponse.query.search;
     }
 
-    private static String[] Titles(List<SearchResult> searchResults) {
+    private static String[] titles(List<SearchResult> searchResults) {
         int count = Math.min(searchResults.size(), 10);
         String[] titles = new String[count];
         for (int i = 0; i < count; i++) {
